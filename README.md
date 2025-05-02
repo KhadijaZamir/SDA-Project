@@ -1,8 +1,7 @@
 # SDA-Project
-Project Name: Library Management System
+# Project Name: Library Management System
 Group Members:
-Khadija zamir:Generate Reports
+Khadija zamir:Generate Reports, Add Book
 Alishba Rashid:Issue Book,Manage Book
 Nida khan: Search Book
-Gul-e-Narjis:Update book
-Tania Abbasi: Add Book,Return Book
+Gul-e-Narjis:Update book, Return Book
