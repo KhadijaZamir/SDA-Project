@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.sdafinalproject;
+package softwaredesignproject;
 
+/**
+ *
+ * @author Gule Narjis
+ */
 import java.util.HashMap;
 
 public class UserDatabase {
@@ -27,3 +31,4 @@ public class UserDatabase {
         return false;
     }
 }
+
