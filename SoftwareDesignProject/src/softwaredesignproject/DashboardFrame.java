@@ -50,6 +50,9 @@ public class DashboardFrame extends JFrame {
         buttonPanel.add(createButton("Search", this::searchBooks));
         buttonPanel.add(createButton("Refresh", e -> refreshBooksTable()));
         buttonPanel.add(createButton("Logout", this::logout));
+        buttonPanel.add(createButton("Issue Book", this::issueBook));
+buttonPanel.add(createButton("Return Book", this::returnBook));
+buttonPanel.add(createButton("My Books", this::showMyBooks));
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -170,4 +173,63 @@ public class DashboardFrame extends JFrame {
             new LoginFrame().setVisible(true);
         }
     }
+    
+    private void issueBook(ActionEvent e) {
+    int selectedRow = booksTable.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a book to issue", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String bookId = (String) tableModel.getValueAt(selectedRow, 0);
+    Book book = BookDatabase.getBookById(bookId);
+    
+    if (!book.isAvailable()) {
+        JOptionPane.showMessageDialog(this, "Book is already issued", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String username = JOptionPane.showInputDialog(this, "Enter username to issue book to:", "Issue Book", JOptionPane.PLAIN_MESSAGE);
+    if (username != null && !username.trim().isEmpty()) {
+        if (BookDatabase.issueBook(bookId, username)) {
+            refreshBooksTable();
+            JOptionPane.showMessageDialog(this, "Book issued successfully to " + username, "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to issue book", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+
+private void returnBook(ActionEvent e) {
+    int selectedRow = booksTable.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a book to return", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String bookId = (String) tableModel.getValueAt(selectedRow, 0);
+    if (BookDatabase.returnBook(bookId)) {
+        refreshBooksTable();
+        JOptionPane.showMessageDialog(this, "Book returned successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "Book is not currently issued", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void showMyBooks(ActionEvent e) {
+    String username = JOptionPane.showInputDialog(this, "Enter username to view borrowed books:", "View Borrowed Books", JOptionPane.PLAIN_MESSAGE);
+    if (username != null && !username.trim().isEmpty()) {
+        List<Book> borrowedBooks = BookDatabase.getBooksBorrowedBy(username);
+        if (borrowedBooks.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No books currently borrowed by " + username, "Borrowed Books", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Books borrowed by ").append(username).append(":\n\n");
+            for (Book book : borrowedBooks) {
+                sb.append(book.getTitle()).append(" (ID: ").append(book.getId()).append(")\n");
+            }
+            JOptionPane.showMessageDialog(this, sb.toString(), "Borrowed Books", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+}
 }

@@ -37,3 +37,5 @@ out/
 
 # NetBeans private project files
 /Code/SDAProject/nbproject/private/
+/SoftwareDesignProject/nbproject/private/
+/SoftwareDesignProject/build/

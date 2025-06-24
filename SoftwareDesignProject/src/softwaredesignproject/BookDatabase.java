@@ -33,6 +33,26 @@ public class BookDatabase {
         return new ArrayList<>(books);
     }
 
+    public static boolean issueBook(String bookId, String username) {
+    Book book = getBookById(bookId);
+    if (book != null && book.isAvailable()) {
+        book.setAvailable(false);
+        book.setBorrowedBy(username);
+        return true;
+    }
+    return false;
+}
+
+public static boolean returnBook(String bookId) {
+    Book book = getBookById(bookId);
+    if (book != null && !book.isAvailable()) {
+        book.setAvailable(true);
+        book.setBorrowedBy(null);
+        return true;
+    }
+    return false;
+}
+
     public static List<Book> searchBooks(String query) {
         List<Book> results = new ArrayList<>();
         String lowerQuery = query.toLowerCase();
@@ -54,4 +74,13 @@ public class BookDatabase {
         }
         return null;
     }
+    public static List<Book> getBooksBorrowedBy(String username) {
+    List<Book> borrowedBooks = new ArrayList<>();
+    for (Book book : books) {
+        if (!book.isAvailable() && username.equals(book.getBorrowedBy())) {
+            borrowedBooks.add(book);
+        }
+    }
+    return borrowedBooks;
+}
 }

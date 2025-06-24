@@ -14,13 +14,15 @@ public class Book {
     private String author;
     private String genre;
     private boolean available;
+    private String borrowedBy;
 
-    public Book(String id, String title, String author, String genre) {
+   public Book(String id, String title, String author, String genre) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.available = true;
+        this.borrowedBy = null;
     }
 
     // Getters and setters
@@ -30,7 +32,10 @@ public class Book {
     public String getGenre() { return genre; }
     public boolean isAvailable() { return available; }
     public void setAvailable(boolean available) { this.available = available; }
-
+    
+    public String getBorrowedBy() { return borrowedBy; }
+    public void setBorrowedBy(String username) { this.borrowedBy = username; }
+    
     @Override
     public String toString() {
         return title + " by " + author + " (" + genre + ")";
