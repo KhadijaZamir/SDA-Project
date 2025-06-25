@@ -129,5 +129,14 @@ public class ManageMember extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
 
         JOptionPane.showMessageDialog(this, scrollPane, "Registered Members", JOptionPane.PLAIN_MESSAGE);
-    }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new ManageMember().setVisible(true);
+        });
+    }
 }
+
+
+
