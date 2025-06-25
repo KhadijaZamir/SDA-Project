@@ -52,6 +52,7 @@ public class DashboardFrame extends JFrame {
         buttonPanel.add(createButton("Logout", this::logout));
         buttonPanel.add(createButton("Issue Book", this::issueBook));
         buttonPanel.add(createButton("Show Issued Books", e -> new IssueDetails().setVisible(true)));
+        buttonPanel.add(createButton("Manage Members", e -> new ManageMember().setVisible(true)));
 buttonPanel.add(createButton("Return Book", this::returnBook));
 buttonPanel.add(createButton("My Books", this::showMyBooks));
 
