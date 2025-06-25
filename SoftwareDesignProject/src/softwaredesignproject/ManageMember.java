@@ -71,7 +71,7 @@ public class ManageMember extends JFrame {
         contentPanel.revalidate();
         contentPanel.repaint();
     }
-
+ 
     private void addMember() {
         JTextField username = new JTextField();
         JTextField password = new JTextField();
